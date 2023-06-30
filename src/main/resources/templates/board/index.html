@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+</html>
+<html>
+
+<head>
+  <title>게시판</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'GmarketSansMedium';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/GmarketSansMedium.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'GmarketSansMedium';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      background-color: #f1f1f1;
+      margin: 0;
+      /* padding: 20px; */
+    }
+
+    .container {
+      max-width: 1500px;
+      margin: 20px auto 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      /* 추가: 컨테이너 요소를 둥글게 */
+      position: relative;
+      /* 추가: 상대적인 위치 설정 */
+    }
+
+    .btncon {
+      max-width: 1500px;
+      margin: 20px auto 20px;
+      height: 50px;
+      border-radius: 8px;
+      /* 추가: 컨테이너 요소를 둥글게 */
+      position: relative;
+      /* 추가: 상대적인 위치 설정 */
+    }
+
+    h3 {
+      font-family: 'GmarketSansMedium';
+      /* text-align: center; */
+    }
+
+    table {
+      font-family: 'GmarketSansMedium';
+      border-radius: 8px;
+      /* 추가: 테이블 요소를 둥글게 */
+    }
+
+    th {
+      text-align: center;
+      font-size: 20px;
+    }
+
+    /* 추가: 글쓰기 버튼 스타일링 */
+    .fixed-action-button {
+      position: absolute;
+      right: 20px;
+      bottom: -50px;
+      z-index: 9999;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-family: 'GmarketSansMedium';
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      background-color: #434B57;
+      /* 버튼의 배경색을 #434B57으로 설정 */
+      color: #fff;
+    }
+
+    .fixed-action-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      background-color: #434B57;
+      /* 호버 상태에서도 배경색을 #434B57으로 유지 */
+      color: #fff;
+    }
+
+    .fixed-action-button:focus {
+      outline: none;
+      /* 포커스 스타일 제거 */
+      box-shadow: none;
+      /* 포커스 시 박스 쉐도우 제거 */
+    }
+
+    .btn-primary {
+      background-color: #434B57;
+      border-color: #434B57;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background-color: #434B57;
+      border-color: #434B57;
+      color: #fff;
+    }
+
+    .btn-primary:focus {
+      background-color: #434B57;
+      border-color: #434B57;
+      color: #fff;
+    }
+
+
+    #nav {
+      padding: 8px;
+      background-color: #252a34;
+      color: white;
+      line-height: 75px;
+      text-align: center;
+      height: 75px;
+      font-size: 40px;
+      font-family: 'GmarketSansMedium';
+    }
+
+
+    .select-btn {
+      font-family: 'GmarketSansMedium';
+      color: white;
+      border: none;
+      text-align: center;
+      width: 100%;
+      padding: 5px;
+      background-color: #434B57;
+      border-radius: 7px;
+      height: 100%;
+      float: left;
+    }
+
+    .font {
+      font-family: 'GmarketSansMedium';
+    }
+
+    /* 추가: 모바일 화면에서 글쓰기 버튼 크기 및 폰트 크기 조정 */
+    @media (max-width: 576px) {
+      .fixed-action-button {
+        /* width: 40px; */
+        height: 40px;
+      }
+
+      .fixed-action-button span {
+        font-size: 12px;
+      }
+
+      /* th {
+      font-size: 12px;
+    } */
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <nav class="navbar bg-dark border-bottom border-bottom-dark font" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand mx-auto" href="#">#Hello Board</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">내가 쓴글</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/boardP/logout">로그 아웃</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container" style="height: 65px;">
+    <h3>자유 게시판</h3>
+  </div>
+  <div class="btncon">
+    <div class="row" style="height: 100%;">
+      <div class="col">
+        <button type="button" class="select-btn" onClick="location.href='PAGENAME.html'">
+          <span>공지사항</span>
+        </button>
+
+      </div>
+      <div class="col">
+        <button type="button" class="select-btn" onClick="location.href='PAGENAME.html'">
+          <span>전체</span>
+        </button>
+
+      </div>
+    </div>
+    <div class="container">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 70px;">번호</th>
+              <th scope="col">제목</th>
+              <th scope="col" style="width: 100px;">글쓴이</th>
+              <th scope="col" style="width: 150px;">작성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="posting : ${postings}" th:onclick="|location.href='@{/boardP/postingDetail(id=${posting.getId()})}'|">
+              <th scope="row" th:text="${posting.getId()}">&nbsp;100&nbsp;</th>
+              <td th:text="${posting.getTitle()}">뉴비도우미한테 참교욱 당한썰푼다</td>
+              <td th:text="${posting.getAuthor()}">제스코</td>
+              <td th:text="${posting.getDt().split(' ')[0]}">어제</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <button type="button" class="btn btn-primary fixed-action-button" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">
+        <span>글쓰기</span>
+      </button>
+    </div>
+
+    <form action="/boardP/new" method="post">
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">게시판 글쓰기</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon3" style="width: 100px;">제목</span>
+                <input name="title" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+              </div>
+              <div class="input-group" style="padding-top: 5px;">
+                <span class="input-group-text">글 내용</span>
+                <textarea name="mainText" style="height: 200px;" class="form-control" aria-label="With textarea"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+              <button type="submit" class="btn btn-primary">작성</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/script.js"></script>
+
+</html>

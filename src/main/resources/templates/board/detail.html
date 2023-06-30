@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"></html>
+<html>
+
+<head>
+  <title>게시판</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'GmarketSansMedium';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/GmarketSansMedium.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'GmarketSansMedium';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      background-color: #eaeaea;
+      margin: 0;
+      padding: 0px;
+    }
+
+    .container {
+      max-width: 1500px;
+      margin: 20px auto 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      /* 추가: 컨테이너 요소를 둥글게 */
+      position: relative;
+      /* 추가: 상대적인 위치 설정 */
+    }
+
+    .btncon {
+      max-width: 1500px;
+      margin: 20px auto 20px;
+      height: 50px;
+      border-radius: 8px;
+      /* 추가: 컨테이너 요소를 둥글게 */
+      position: relative;
+      /* 추가: 상대적인 위치 설정 */
+    }
+
+    a {
+      padding: 10px 20px;
+      display: flex;
+      width: max-content;
+      background-color: #fff;
+      border-radius: 7px;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-family: 'GmarketSansMedium';
+      font-size: 1.1em;
+    }
+
+    h1 {
+      font-family: 'GmarketSansMedium';
+    }
+
+    #writing {
+      font-family: 'GmarketSansMedium';
+      font-size: 15px;
+      padding-top: 15px;
+      clear: both;
+      height: 400px;
+    }
+
+    .writingInfo {
+      font-size: 15px;
+      font-family: 'GmarketSansMedium';
+    }
+
+    #nav {
+      padding: 8px;
+      background-color: #252a34;
+      line-height: 75px;
+      color: white;
+      text-align: center;
+      height: 75px;
+      font-size: 40px;
+      font-family: 'GmarketSansMedium';
+    }
+
+
+    #comment {
+      position: absolute;
+      bottom: 0;
+      position: relative;
+      margin-top: 20px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-family: 'GmarketSansMedium';
+      margin-bottom: 10px;
+    }
+
+    .new {
+      background-color: #f1f1f1;
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      margin-bottom: 25px;
+    }
+
+    .new textarea {
+      padding: 15px;
+      width: 100%;
+      background-color: #f1f1f1;
+      border: none;
+      border-radius: 7px;
+      resize: vertical;
+    }
+
+    .new #write {
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #cacfd8;
+      border-radius: 7px;
+      font-weight: bold;
+      font-family: 'GmarketSansMedium';
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .list {
+      padding-top: 5px;
+      font-family: 'GmarketSansMedium';
+      color: black;
+      font-weight: bold;
+    }
+
+    /* 추가: 모바일 화면에서 글쓰기 버튼 크기 및 폰트 크기 조정 */
+    @media (max-width: 576px) {
+      #writing {
+        font-size: 13px;
+      }
+
+      #writingInfo {
+        font-size: 11px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="nav">
+    #Hello Board
+  </div>
+
+  <div class="btncon">
+    <a href="/boardP/postingDetail/re">
+      < 목록으로 </a>
+  </div>
+
+  <div class="container">
+    <h1 th:text="${post.getTitle()}">제목</h1>
+    <div class="writingInfo">
+      <span style="padding-right: 13px;" th:text="|글쓴이 : ${post.getAuthor()}|">글쓴이 : Jesco</span>
+      <span th:text="|작성일 : ${post.getDt().split(' ')[0]}|">작성일 : 2023년 06월 21일</span>
+    </div>
+    <hr class="dashed">
+
+    <div id="writing" th:text = "${post.getMainText()}">
+      안녕하세요 저는 최문찬 입니다.
+    </div>
+
+    <hr class="dashed">
+    <div id="comment">
+      <h2>댓글</h2>
+      <div class="new">
+        <form action="/board/postingDetail/comment/new" method="post">
+          <textarea name="comment"></textarea>
+          <button type="submit" name="author" id="write">작성</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="list" th:each="com : ${comment}">
+      <span class="he" th:text="${com.getComment()}">안녕하세요</span>
+      <div class="writingInfo" style="padding-top: 25px;">
+        <span style="padding-right: 13px;" th:text = "|작성자 : ${com.getAuthor()}|">글쓴이 : Jesco</span>
+        <span th:text = "|작성일 : ${com.getDt().split(' ')[0]}|">작성일 : 2023년 06월 21일</span>
+      </div>
+      <hr class="dashed">
+    </div>
+
+  </div>
+
+  </div>
+
+
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/script.js"></script>
+
+</html>
